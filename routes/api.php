@@ -1,5 +1,7 @@
 <?php 
 
+use Illuminate\Support\Facades\Route;
+
 Route::post('/veganize', function () {
 
     $dish = request()->input('dish');
