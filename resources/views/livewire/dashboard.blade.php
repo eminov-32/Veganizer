@@ -1,30 +1,64 @@
-<main class="min-h-screen bg-vegan-cream p-4 sm:p-8">
-    <div class="mx-auto max-w-5xl rounded-[2rem] border border-vegan-line bg-vegan-paper p-7 shadow-[0_20px_60px_rgba(50,67,32,0.10)] sm:p-10">
-        <header class="flex flex-col gap-5 border-b border-vegan-line pb-7 sm:flex-row sm:items-center sm:justify-between">
-            <div class="flex items-center gap-3">
-                <x-icon-sprout class="h-12 w-12" />
+<x-app-shell
+    eyebrow="Startseite"
+    :title="'Hallo '.auth()->user()->name.' 👋'"
+    description="Erstelle dein erstes Rezept oder arbeite an deinen gespeicherten Gerichten weiter."
+>
+    <x-slot:actions>
+        <a wire:navigate href="{{ route('recipes.create') }}" class="inline-flex min-h-12 items-center justify-center rounded-xl bg-vegan-leaf-dark px-5 py-3 font-bold text-white transition hover:bg-[#4f6623] focus:outline-none focus:ring-4 focus:ring-vegan-mist">
+            Rezept erstellen
+        </a>
+    </x-slot:actions>
+
+    <section aria-label="Schnellzugriff" class="grid gap-4 md:grid-cols-2">
+        <a wire:navigate href="{{ route('recipes.create') }}" class="group rounded-2xl border border-vegan-line bg-[#fbfcf4] p-6 transition hover:-translate-y-0.5 hover:border-[#9caf70] hover:shadow-md focus:outline-none focus:ring-4 focus:ring-vegan-mist">
+            <div class="flex items-start justify-between gap-5">
                 <div>
-                    <p class="text-xs font-semibold uppercase tracking-[0.22em] text-vegan-leaf-dark">Veganizer</p>
-                    <h1 class="mt-1 text-2xl font-bold text-vegan-ink">Hallo {{ auth()->user()->name }} 👋</h1>
+                    <p class="text-sm font-bold text-vegan-ink">Neues Rezept anlegen</p>
+                    <p class="mt-2 text-sm leading-relaxed text-[#5b675e]">Erfasse Zutaten, Mengen und die Zubereitung deines Gerichts.</p>
                 </div>
+                <span aria-hidden="true" class="text-2xl text-vegan-leaf-dark transition group-hover:translate-x-1">→</span>
             </div>
+        </a>
 
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button class="rounded-xl border border-vegan-line px-5 py-2.5 text-sm font-bold text-vegan-leaf-dark transition hover:bg-vegan-mist focus:outline-none focus:ring-4 focus:ring-vegan-mist">
-                    Abmelden
-                </button>
-            </form>
-        </header>
-
-        <section class="py-12 text-center sm:py-16">
-            <div class="mx-auto flex size-20 items-center justify-center rounded-full bg-vegan-mist">
-                <x-icon-sprout class="h-14 w-14" />
+        <a wire:navigate href="{{ route('recipes.index') }}" class="group rounded-2xl border border-vegan-line bg-[#fbfcf4] p-6 transition hover:-translate-y-0.5 hover:border-[#9caf70] hover:shadow-md focus:outline-none focus:ring-4 focus:ring-vegan-mist">
+            <div class="flex items-start justify-between gap-5">
+                <div>
+                    <p class="text-sm font-bold text-vegan-ink">Meine Rezepte</p>
+                    <p class="mt-2 text-sm leading-relaxed text-[#5b675e]">{{ $recipeCount }} {{ $recipeCount === 1 ? 'eigenes Rezept' : 'eigene Rezepte' }} gespeichert.</p>
+                </div>
+                <span aria-hidden="true" class="text-2xl text-vegan-leaf-dark transition group-hover:translate-x-1">→</span>
             </div>
-            <h2 class="mt-6 text-3xl font-bold tracking-tight text-vegan-ink">Dein Konto ist bereit</h2>
-            <p class="mx-auto mt-3 max-w-xl leading-relaxed text-[#5a665d]">
-                Anmeldung und Registrierung funktionieren. Im nächsten Schritt entsteht hier deine Rezept-Startseite.
-            </p>
-        </section>
-    </div>
-</main>
+        </a>
+    </section>
+
+    <section class="mt-8 rounded-2xl border border-vegan-line bg-white/70 p-5 sm:p-6" aria-labelledby="recent-recipes-heading">
+        <div class="flex items-center justify-between gap-4">
+            <div>
+                <p class="text-xs font-semibold uppercase tracking-[0.2em] text-vegan-leaf-dark">Zuletzt bearbeitet</p>
+                <h2 id="recent-recipes-heading" class="mt-1 text-xl font-bold text-vegan-ink">Deine letzten Rezepte</h2>
+            </div>
+            @if ($recentRecipes->isNotEmpty())
+                <a wire:navigate href="{{ route('recipes.index') }}" class="rounded-lg px-2 py-1 text-sm font-bold text-vegan-leaf-dark underline decoration-transparent underline-offset-4 hover:decoration-current focus:outline-none focus:ring-2 focus:ring-vegan-leaf">Alle ansehen</a>
+            @endif
+        </div>
+
+        @if ($recentRecipes->isEmpty())
+            <div class="py-10 text-center">
+                <div class="mx-auto flex size-16 items-center justify-center rounded-full bg-vegan-mist">
+                    <x-icon-sprout class="h-11 w-11" />
+                </div>
+                <p class="mt-4 font-bold text-vegan-ink">Noch kein Rezept gespeichert</p>
+                <p class="mt-2 text-sm text-[#5b675e]">Dein erstes Rezept ist nur ein paar Zutaten entfernt.</p>
+            </div>
+        @else
+            <div class="mt-5 grid gap-3 lg:grid-cols-3">
+                @foreach ($recentRecipes as $recipe)
+                    <a wire:navigate href="{{ route('recipes.show', $recipe) }}" class="rounded-xl border border-vegan-line bg-vegan-paper p-4 transition hover:border-[#9caf70] hover:shadow-sm focus:outline-none focus:ring-4 focus:ring-vegan-mist">
+                        <p class="font-bold text-vegan-ink">{{ $recipe->title }}</p>
+                        <p class="mt-2 text-sm text-[#677168]">{{ $recipe->ingredients_count }} {{ $recipe->ingredients_count === 1 ? 'Zutat' : 'Zutaten' }}</p>
+                    </a>
+                @endforeach
+            </div>
+        @endif
+    </section>
+</x-app-shell>
