@@ -3,6 +3,9 @@
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Livewire\Dashboard;
+use App\Livewire\Recipes\RecipeEditor;
+use App\Livewire\Recipes\RecipeIndex;
+use App\Livewire\Recipes\RecipeShow;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -18,15 +21,20 @@ Route::middleware('guest')->group(function (): void {
     Route::get('/register', Register::class)->name('register');
 });
 
-Route::get('/dashboard', Dashboard::class)
-    ->middleware('auth')
-    ->name('dashboard');
+Route::middleware('auth')->group(function (): void {
+    Route::get('/dashboard', Dashboard::class)->name('dashboard');
 
-Route::post('/logout', function (Request $request) {
-    Auth::logout();
+    Route::get('/recipes', RecipeIndex::class)->name('recipes.index');
+    Route::get('/recipes/create', RecipeEditor::class)->name('recipes.create');
+    Route::get('/recipes/{recipe}', RecipeShow::class)->name('recipes.show');
+    Route::get('/recipes/{recipe}/edit', RecipeEditor::class)->name('recipes.edit');
 
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
+    Route::post('/logout', function (Request $request) {
+        Auth::logout();
 
-    return redirect()->route('login');
-})->middleware('auth')->name('logout');
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login');
+    })->name('logout');
+});
