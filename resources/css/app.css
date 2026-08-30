@@ -6,6 +6,31 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    --font-sans: 'Avenir Next', Avenir, 'Segoe UI', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-display: Georgia, Cambria, 'Times New Roman', Times, serif;
+    --color-vegan-ink: #18311f;
+    --color-vegan-leaf: #789638;
+    --color-vegan-leaf-dark: #5f792a;
+    --color-vegan-mist: #e6edcf;
+    --color-vegan-cream: #f7f4e8;
+    --color-vegan-paper: #fffdf7;
+    --color-vegan-line: #c8cfad;
+    --color-vegan-soil: #a97878;
+}
+
+@layer base {
+    html {
+        min-width: 320px;
+        color-scheme: light;
+    }
+
+    button,
+    a {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    [wire\:cloak] {
+        display: none !important;
+    }
 }
