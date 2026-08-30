@@ -8,12 +8,6 @@
     <div aria-hidden="true" class="absolute -right-32 top-28 size-80 rounded-full bg-vegan-mist/80 lg:size-[30rem]"></div>
 
     <main class="relative mx-auto grid min-h-[calc(100vh-1.5rem)] max-w-[1520px] overflow-hidden rounded-[1.75rem] border border-[#9daa78] bg-[#fbf9f1]/90 shadow-[0_22px_70px_rgba(50,67,32,0.12)] sm:min-h-[calc(100vh-2.5rem)] lg:grid-cols-[minmax(0,1.08fr)_minmax(420px,0.92fr)]">
-        <div aria-hidden="true" class="absolute left-5 top-5 z-20 flex gap-2">
-            <span class="size-3 rounded-full bg-[#f1b65f] ring-1 ring-[#cf994a]"></span>
-            <span class="size-3 rounded-full bg-[#ec8960] ring-1 ring-[#cb6b45]"></span>
-            <span class="size-3 rounded-full bg-[#82b260] ring-1 ring-[#66924a]"></span>
-        </div>
-
         <section class="relative flex min-h-[19rem] flex-col justify-center px-7 pb-10 pt-20 sm:px-12 lg:min-h-full lg:px-[clamp(3rem,6vw,7rem)] lg:py-24">
             <div aria-hidden="true" class="absolute bottom-8 right-8 hidden lg:block">
                 <x-icon-sprout class="h-32 w-32 opacity-90" />

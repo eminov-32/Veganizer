@@ -51,14 +51,9 @@
         </header>
 
         <main class="relative mt-6 overflow-hidden rounded-[2rem] border border-[#aab58a] bg-vegan-paper shadow-[0_24px_70px_rgba(50,67,32,0.10)]">
-            <div aria-hidden="true" class="absolute left-5 top-5 flex gap-2">
-                <span class="size-2.5 rounded-full bg-[#f1b65f]"></span>
-                <span class="size-2.5 rounded-full bg-[#ec8960]"></span>
-                <span class="size-2.5 rounded-full bg-[#82b260]"></span>
-            </div>
             <div aria-hidden="true" class="absolute -right-28 top-14 size-72 rounded-full bg-vegan-mist/75"></div>
 
-            <div class="relative z-10 p-5 pt-16 sm:p-8 sm:pt-16 lg:p-10 lg:pt-16">
+            <div class="relative z-10 p-5 sm:p-8 lg:p-10">
                 <section class="flex flex-col gap-5 border-b border-vegan-line pb-7 sm:flex-row sm:items-end sm:justify-between">
                     <div class="max-w-3xl">
                         @if ($eyebrow)
