@@ -17,24 +17,34 @@
                 </span>
             </a>
 
-            <div class="flex flex-wrap items-center gap-2">
-                <nav aria-label="Hauptnavigation" class="flex flex-wrap items-center gap-1 rounded-2xl bg-vegan-paper p-1 ring-1 ring-vegan-line/80">
+            <div class="flex w-full flex-wrap items-center gap-2 lg:w-auto">
+                <nav aria-label="Hauptnavigation" class="flex w-full flex-wrap items-center gap-1 rounded-2xl bg-vegan-paper p-1 ring-1 ring-vegan-line/80 sm:w-auto">
                     <a
                         wire:navigate
                         href="{{ route('dashboard') }}"
                         @if (request()->routeIs('dashboard')) aria-current="page" @endif
-                        class="min-h-11 rounded-xl px-4 py-2.5 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-vegan-leaf {{ request()->routeIs('dashboard') ? 'bg-vegan-mist text-vegan-ink' : 'text-[#536057] hover:bg-vegan-mist/60' }}"
+                        class="min-h-11 flex-1 rounded-xl px-4 py-2.5 text-center text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-vegan-leaf sm:flex-none {{ request()->routeIs('dashboard') ? 'bg-vegan-mist text-vegan-ink' : 'text-[#536057] hover:bg-vegan-mist/60' }}"
                     >
                         Übersicht
                     </a>
                     <a
                         wire:navigate
                         href="{{ route('recipes.index') }}"
-                        @if (request()->routeIs('recipes.index', 'recipes.show', 'recipes.edit')) aria-current="page" @endif
-                        class="min-h-11 rounded-xl px-4 py-2.5 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-vegan-leaf {{ request()->routeIs('recipes.index', 'recipes.show', 'recipes.edit') ? 'bg-vegan-mist text-vegan-ink' : 'text-[#536057] hover:bg-vegan-mist/60' }}"
+                        @if (request()->routeIs('recipes.index', 'recipes.create', 'recipes.show', 'recipes.edit')) aria-current="page" @endif
+                        class="min-h-11 flex-1 rounded-xl px-4 py-2.5 text-center text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-vegan-leaf sm:flex-none {{ request()->routeIs('recipes.index', 'recipes.create', 'recipes.show', 'recipes.edit') ? 'bg-vegan-mist text-vegan-ink' : 'text-[#536057] hover:bg-vegan-mist/60' }}"
                     >
-                        Meine Rezepte
+                        <span class="sm:hidden">Rezepte</span><span class="hidden sm:inline">Meine Rezepte</span>
                     </a>
+                    @can('access-admin')
+                        <a
+                            wire:navigate
+                            href="{{ route('admin.users.index') }}"
+                            @if (request()->routeIs('admin.*')) aria-current="page" @endif
+                            class="min-h-11 flex-1 rounded-xl px-4 py-2.5 text-center text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-vegan-leaf sm:flex-none {{ request()->routeIs('admin.*') ? 'bg-vegan-mist text-vegan-ink' : 'text-[#536057] hover:bg-vegan-mist/60' }}"
+                        >
+                            Admin
+                        </a>
+                    @endcan
                 </nav>
 
                 <a wire:navigate href="{{ route('recipes.create') }}" class="inline-flex min-h-11 items-center rounded-xl bg-vegan-leaf-dark px-4 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-[#4f6623] focus:outline-none focus:ring-4 focus:ring-vegan-mist">
@@ -55,13 +65,13 @@
 
             <div class="relative z-10 p-5 sm:p-8 lg:p-10">
                 <section class="flex flex-col gap-5 border-b border-vegan-line pb-7 sm:flex-row sm:items-end sm:justify-between">
-                    <div class="max-w-3xl">
+                    <div class="min-w-0 max-w-3xl">
                         @if ($eyebrow)
                             <p class="text-xs font-semibold uppercase tracking-[0.22em] text-vegan-leaf-dark">{{ $eyebrow }}</p>
                         @endif
-                        <h1 class="mt-2 text-3xl font-bold tracking-[-0.025em] text-vegan-ink sm:text-4xl">{{ $title }}</h1>
+                        <h1 class="mt-2 break-words text-3xl font-bold tracking-[-0.025em] text-vegan-ink [overflow-wrap:anywhere] sm:text-4xl">{{ $title }}</h1>
                         @if ($description)
-                            <p class="mt-3 leading-relaxed text-[#5b675e]">{{ $description }}</p>
+                            <p class="mt-3 break-words leading-relaxed text-[#5b675e] [overflow-wrap:anywhere]">{{ $description }}</p>
                         @endif
                     </div>
 
