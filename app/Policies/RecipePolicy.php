@@ -31,4 +31,9 @@ class RecipePolicy
     {
         return $recipe->user_id === $user->id;
     }
+
+    public function inspect(User $user, Recipe $recipe): bool
+    {
+        return $user->isAdmin();
+    }
 }
